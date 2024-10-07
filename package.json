@@ -1,0 +1,48 @@
+
+
+{
+    "name": "mi-proyecto-ecomerce",
+    "version": "1.0.0",
+    "description": "Tienda en linea para la compra de productos",
+    "main": "index.js",
+    "scripts": {
+     "start": "node index.js",
+     "dev": "nodemon index.js",
+     "test": "jest"
+
+    },
+
+    "autor": "federico marcheggiano",
+    "license": "CODERHOUSE",
+    "dependencies": {
+        "express": "^4.18.2",
+        "mongoose": "^6.8.0",
+        "cors": "^2.8.5"
+    },
+
+    "devDependencies": {
+        "nodemon": "^2.0.15",
+        "jest": "^27.4.7"
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

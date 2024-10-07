@@ -1,0 +1,82 @@
+<form id="shipping-form">
+    <input type="text" name="address" placeholder="Dirección de envio" required>
+    <input type="text" name="city" placeholder="Ciudad" required>
+    <input type="text" name="postalCode" placeholder="Codigo Postal" required>
+    <button type="submit">Continuar</button>
+</form>
+
+<form id="payment-form">
+    <input type="radio" id="stripe" name="paymentMethod" value="stripe" checked>
+    <label for="stripe">Tarjeta de credito o debito (Stripe)</label>
+
+    <input type="radio" id="'paypal" name="paymentMthod" value="paypal">
+    <label for="paypal">paypal</label>
+
+    <button type="submit">Proceder con el pago</button>
+</form>
+
+import { loadStripe } from '@stripe/stripe.js';
+
+const stripe = await loadStripe('YOUR_STRIPE_PUBLIC_KEY');
+
+const paymentForm = document.getElementById('payment-form');
+
+paymentForm.addEventListener('sumit', async (e) => {
+    e.preventDefault();
+
+    const response = await fetch('/checkout/payment/stripe', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json,
+        },
+        body: JSON.stringify({
+            amount: 20000,
+        }),
+    });
+
+    const { clientSecret } = await response.json();
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+            card: {
+                number: '4561320954108762',
+                exp_month: 12,
+                exp_year: 26,
+                cvc: '803',
+            },
+        },
+    });
+
+    if (error) {
+        console.error(error);
+    } else if (paymentIntent.status === 'succeeded') {
+        console.log('Pago completado con éxito');
+    }
+})
+
+router.post('/checout/order', async (req, res) => {
+    const { paymentIntentId, products, shippingDetails, totalamount  } = req.body;
+
+    const order = new order({
+        userId: req.user.id,
+        products,
+        shippingDetails,
+        totalAmount,
+        paymentIntentId,
+        status: 'pending',
+    });
+
+    await order.save();
+    res.json({ message: 'Pedido confirmado', order });
+});
+
+if (paymentIntent.status === 'succeeded') {
+    window.location.href = '/order-success';
+
+}
+
+
+router.get('/orders/:id', async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    res.json(order);
+});

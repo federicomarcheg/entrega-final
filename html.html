@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html Iang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+        content: "width=device-width, initial-scarle=1.0">
+        <title>producto - E-commerce</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="product-container">
+            <div class="product-image">
+                <img id="https://images.app.goo.gl/9pX5x79P93iZKJiV9"
+                src="product1.jpg" alt="Product 5">
+                <div class="thumbnail-images">
+                    <img id="https://images.app.goo.gl/JTsArZ5KtWv6jkvk7"
+                    src="thumbnail1.jpg" alt="Thumbnail 2">
+                    <img id="https://images.app.goo.gl/DW7Tk7hM4MuNks6m9"
+                    src="thumbnail2.jpg" alt="Thumbnail 3">
+                    <img id="https://images.app.goo.gl/jWkob1bi4LCjweqi9"
+                    src="thumbnail3.jpg" alt="Thumbnail 4">
+                </div>
+                <onclick="changeImage('product2.jpg')">
+                <onclick=changeImage('product3.jpg')"></onclick>
+            </div>
+            </div>
+            <div class="product-details">
+                <h1>computadora</h1>
+                <p class="price">$99.99</p>
+                <h2>iphone 15 pro max</h2>
+                <p class="price">$400000.00</p>
+                <h3>airpods 2 generacion</h3>
+                <p class="price">$200000.00</p>
+                <h4>teclado para compu gamer</h4>
+                <p class="price">$40000.00</p>
+                <h5>televisor 50 pulgadas</h5>
+                <p class="price">$500000.50</p>
+               <p class="description1">computadora gamer para descargar juegos de alto rendimiento con la mejor placa,
+                 ya armada o te la damos para que la armes vos </p> 
+                 <p class="description2">teclado para compu gamer que se iluminan las teclas cuando lo usas </p>
+                 <p class="description3">airpods 2 generacion que son la mejor opción para los amantes de la música,
+                    ademas tienen canselacion de ruido y mucho mas </p>
+                    <p class="description4">televisor 50 pulgadas que es el mejor televisor para ver 
+                        series, peliculas y juegos en vivo </p>
+                      <button class="add-to-cart-btn">añadir al carrito</button>
+                      </div>
+                      </div>  
+                      <script>
+                        function changeImage(imageSrc) {
+                            document.getElementById('main-product-image').src = imageSrc;
+                        }
+                      </script>
+    </body>
+</html>
+
+<nav>
+    <div class="navbar">
+        <a href="#">inicio</a>
+        <a href="#">productos</a>
+        <a href="#" class="cart=icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></a>
+    </div>
+</nav>
+
+<div class="cart-dropdown" id="cart-dropdown">
+    <h3>Carrito de Compras</h3>
+    <div id="cart-items">
+        <p>Tu carrito esta vacio</p>
+    </div>
+    <button class="checkout-btn">Ir a pagar</button>
+</div>
+
+<form id="checkout-form">
+    <h2>Información de pago</h2>
+    <label for="name">nombre completo:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="address">Dirección:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="card">Número de Tarjeta:</label>
+    <input type="text" id="card" name="card" required>
+
+    <label for="expiry">Fecha de Expiración:</label>
+    <input type="month" id="expiry" name="expiry" required>
+
+    <button type="submit">Finalizar Compra</button>
+</form>
+
+<input type="text" id="search-bar" placeholder="Buscar productos..." oninput="searchProducts()">
+<div id="search-results"></div>
+
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Carrito de compras</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Tu Carrito de compras </h1>
+         <div id="cart-container">
+            <p>Cargando carrito...</p>
+            </div>
+            <div id="cart-total"></div>
+            <button id="checkout-btn" style="display: none;">Ir a pagar</button>
+
+            <script>
+                async function loadCart() {
+                    const response = await fetch('/api/cart');
+                    const cart = await response.json();
+                    const cartContainer = document.getElementById('cart-container');
+                    const checkoutButton = document.getElementById('checkout-btn');
+                    const cartTotal = document.getElementById('cart-total');
+
+                    if (cart>message) {
+                        cartContainer.immerHTML = `<p>${cart.message}</p>`;
+                        checkoutButton.style.display = 'none';
+                    } else {
+                        cartContainer.innerHTML = '';
+                        let total = 0;
+
+                        cart.items.forEach(item => {
+                            const productDiv = document.createElement('div');
+                            productDiv.classList.add('cart-item');
+                            productDiv.innerHTML =
+                            <img src="${item.productId.imageUrl}" alt="${item.productId.name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <h3>${item.productId.name}</h3>
+                                <p>Precio: $${item.productId.price}</p>
+                                <p>Cantidad: ${item.quantity}</p>
+                             </div> 
+                             </img> 
+                             
+                             cartContainer.appendChild(productDiv);
+                             total += item.productId.price * item.quantity;
+                        });
+
+                        cartTotal.innerHTML = <h2>Total: $${total.toFixed(2)}</h2>
+                        checkoutButton.style.display = 'block';
+                    }
+                }
+                loadCart();
+            </script>
+    </body>
+</html>

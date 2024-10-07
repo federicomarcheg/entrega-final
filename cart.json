@@ -1,0 +1,26 @@
+{
+
+
+"_id": "id_del_carrito",
+"user": "nicolas10",
+"items": [
+{
+
+    "product": {
+        "_id": "id_del_producto",
+        "name": "banana",
+        "price": 30.99  
+    },
+    "quantity": 2
+},
+{
+    "produc": {
+        "_id": "id_del_otro_producto",
+        "name": "milanesa",
+        "price": 60.00
+    },
+    "quantity": 1
+}
+]
+}
+
